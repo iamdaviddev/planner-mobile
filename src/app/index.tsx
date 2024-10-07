@@ -12,14 +12,23 @@ import  {
 import { colors } from '@/styles/colors';
 import { Button } from '@/components/button';
 import { useState } from 'react';
+import { Modal } from '@/components/modal';
 
 enum StepForm {
   TRIP_DETAILS = 1,
   ADD_EMAIL = 2,
 }
 
+enum MODAL {
+  NONE = 0,
+  CALENDAR = 1,
+  GUESTS = 2,
+}
+
 export default function index() {
   const [stepForm, setStepForm] = useState(StepForm.TRIP_DETAILS);
+  //Modal
+  const [showModal, setShowModal] = useState(MODAL.NONE)
 
   function handleNextStepForm(){
     if(stepForm === StepForm.TRIP_DETAILS){
@@ -91,6 +100,15 @@ export default function index() {
       <Text className='text-zinc-500 font-regular text-center text-base'>
         Ao planejar sua viagem pela plann.er você automaticamente concorda com nossos <Text className='text-zinc-300 underline'>termos de uso e políticas de privacidade.</Text>
       </Text>
+
+      <Modal 
+        title='Selecionar datas' 
+        subtitle='Selecione a data de ida e volta da viagem'
+        visible={showModal === MODAL.CALENDAR}
+        onClose={() => setShowModal(MODAL.NONE)}
+      >
+        
+      </Modal>
     </View>
   )
 }
